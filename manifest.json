@@ -1,21 +1,52 @@
 {
   "id": "plugin-hive",
   "displayName": "Hive",
-  "description": "Plugin for integrating data with Hive.com",
+  "description": "Publisher which connects to Hive",
   "apiVersion": "2",
   "versionDescription": "Version 2",
-  "version": "1.0.5",
+  "version": "1.0.0",
   "iconFile": "icon.jpg",
-  "executable": "Plugin-Hive",
+  "executable": "PluginHive",
   "kind": "publisher",
   "os": "$GOOS",
   "arch": "$GOARCH",
+  "accessGroups": [],
   "canProduceMultipleSchemas": true,
   "canAcceptQueryBasedSchemas": false,
-  "canUseOAuth": true,
+  "canUseOAuth": false,
+  "canConfigureWrite": false,
   "canWrite": false,
+  "canConfigureReplication": true,
+  "canWriteReplication": true,
+  "querySchema": {
+    "ui": {
+      "ui:widget": "code",
+      "ui:options": {
+        "language": "sql"
+      }
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
   "configSchema": {
-    "ui": {},
-    "schema": {}
+    "ui": {
+      "ui:order": [
+        "ConnectionString"
+      ]
+    },
+    "schema": {
+      "type": "object",
+      "properties": {
+        "ConnectionString" : {
+          "type": "string",
+          "title": "Connection String",
+          "description": "The ODBC connection string to Hive"
+        }
+      },
+      "required": [
+        "ConnectionString"
+      ]
+    }
   }
 }

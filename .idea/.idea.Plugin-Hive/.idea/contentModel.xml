@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.1/resharper-host/local/Transient/ReSharperHost/v201/SolutionCaches/_Plugin-Hive.2066965462.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="LICENSE" t="Include" />
+      <e p="Plugin-Hive" t="IncludeRecursive">
+        <e p="DataContracts" t="Include">
+          <e p="FormSettings.cs" t="Include" />
+        </e>
+        <e p="Helper" t="Include">
+          <e p="Logger.cs" t="Include" />
+        </e>
+        <e p="Plugin" t="Include">
+          <e p="Plugin.cs" t="Include" />
+        </e>
+        <e p="Plugin-Hive.csproj" t="IncludeRecursive" />
+        <e p="Program.cs" t="Include" />
+        <e p="Publisher" t="Include">
+          <e p="Publisher.cs" t="Include" />
+          <e p="PublisherGrpc.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Plugin-Hive.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Plugin-Hive.Test" t="IncludeRecursive">
+        <e p="Helper" t="Include">
+          <e p="LoggerTest.cs" t="Include" />
+        </e>
+        <e p="Plugin" t="Include">
+          <e p="PluginTests.cs" t="Include" />
+        </e>
+        <e p="Plugin-Hive.Test.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Plugin-Hive.Test.AssemblyInfo.cs" t="Include" />
+              <e p="Plugin-Hive.Test.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Plugin-Hive.sln" t="IncludeFlat" />
+      <e p="icon.jpg" t="Include" />
+      <e p="manifest.json" t="Include" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
