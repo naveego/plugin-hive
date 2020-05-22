@@ -42,13 +42,15 @@ namespace PluginHive.API.Replication
                     // metadata exists
                     await reader.ReadAsync();
 
+                    Logger.Debug(reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataRequest}").ToString());
+                    
                     var request = JsonConvert.DeserializeObject<PrepareWriteRequest>(
-                        reader.GetValueById(Constants.ReplicationMetaDataRequest).ToString());
-                    var shapeName = reader.GetValueById(Constants.ReplicationMetaDataReplicatedShapeName)
+                        reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataRequest}").ToString());
+                    var shapeName = reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataReplicatedShapeName}")
                         .ToString();
-                    var shapeId = reader.GetValueById(Constants.ReplicationMetaDataReplicatedShapeId)
+                    var shapeId = reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataReplicatedShapeId}")
                         .ToString();
-                    var timestamp = DateTime.Parse(reader.GetValueById(Constants.ReplicationMetaDataTimestamp)
+                    var timestamp = DateTime.Parse(reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataTimestamp}")
                         .ToString());
                     
                     replicationMetaData = new ReplicationMetaData

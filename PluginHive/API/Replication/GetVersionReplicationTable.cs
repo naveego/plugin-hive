@@ -14,7 +14,8 @@ namespace PluginHive.API.Replication
                 ColumnName = Constants.ReplicationVersionRecordId,
                 // DataType = "varchar(255)",
                 DataType = "string",
-                PrimaryKey = true
+                PrimaryKey = false,
+                IsKey = true
             });
             versionTable.Columns.Add(new ReplicationColumn
             {

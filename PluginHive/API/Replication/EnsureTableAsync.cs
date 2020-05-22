@@ -24,9 +24,9 @@ AND table_name = '{1}'";
             var cmd = connFactory.GetCommand($"CREATE SCHEMA IF NOT EXISTS {table.SchemaName}", conn);
             await cmd.ExecuteNonQueryAsync();
 
-            cmd = connFactory.GetCommand(string.Format(EnsureTableQuery, table.SchemaName, table.TableName), conn);
-            
-            Logger.Debug($"Creating Table: {string.Format(EnsureTableQuery, table.SchemaName, table.TableName)}");
+            // cmd = connFactory.GetCommand(string.Format(EnsureTableQuery, table.SchemaName, table.TableName), conn);
+            //
+            // Logger.Debug($"Creating Table: {string.Format(EnsureTableQuery, table.SchemaName, table.TableName)}");
 
             // create table
             var querySb = new StringBuilder($@"CREATE TABLE IF NOT EXISTS 
@@ -36,7 +36,7 @@ AND table_name = '{1}'";
             foreach (var column in table.Columns)
             {
                 querySb.Append(
-                    $"{Utility.Utility.GetSafeName(column.ColumnName)} {column.DataType}{(column.PrimaryKey ? " NOT NULL UNIQUE" : "")},");
+                    $"{Utility.Utility.GetSafeName(column.ColumnName)} {column.DataType}{(column.PrimaryKey ? "" : "")},");
                 if (column.PrimaryKey)
                 {
                     primaryKeySb.Append($"{Utility.Utility.GetSafeName(column.ColumnName)},");

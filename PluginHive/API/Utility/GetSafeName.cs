@@ -2,9 +2,10 @@ namespace PluginHive.API.Utility
 {
     public static partial class Utility
     {
-        public static string GetSafeName(string unsafeName, char escapeChar = '"')
+        public static string GetSafeName(string unsafeName, char escapeChar = '`')
         {
             return $"{escapeChar}{unsafeName}{escapeChar}";
+            // return $"{unsafeName}";
         }
     }
 }

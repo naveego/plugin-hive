@@ -18,7 +18,7 @@ WHERE {2} = '{3}'";
             var cmd = connFactory.GetCommand(string.Format(DeleteRecordQuery,
                     Utility.Utility.GetSafeName(table.SchemaName),
                     Utility.Utility.GetSafeName(table.TableName),
-                    Utility.Utility.GetSafeName(table.Columns.Find(c => c.PrimaryKey == true).ColumnName),
+                    Utility.Utility.GetSafeName(table.Columns.Find(c => c.IsKey == true).ColumnName),
                     primaryKeyValue
                 ),
                 conn);

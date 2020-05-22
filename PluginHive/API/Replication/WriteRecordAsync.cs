@@ -135,6 +135,8 @@ namespace PluginHive.API.Replication
             catch (Exception e)
             {
                 Logger.Error($"Error replicating records {e.Message}");
+                Logger.Error(e.StackTrace);
+                Logger.Error(e.Source);
                 // send ack
                 var ack = new RecordAck
                 {

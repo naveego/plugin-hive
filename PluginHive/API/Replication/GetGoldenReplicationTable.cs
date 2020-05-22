@@ -14,7 +14,8 @@ namespace PluginHive.API.Replication
                 ColumnName = Constants.ReplicationRecordId,
                 // DataType = "varchar(255)",
                 DataType = "string",
-                PrimaryKey = true
+                PrimaryKey = false,
+                IsKey = true
             });
             goldenTable.Columns.Add(new ReplicationColumn
             {

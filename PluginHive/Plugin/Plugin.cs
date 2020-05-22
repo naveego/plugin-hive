@@ -387,6 +387,7 @@ namespace PluginHive.Plugin
         public override async Task<PrepareWriteResponse> PrepareWrite(PrepareWriteRequest request,
             ServerCallContext context)
         {
+            Logger.SetLogLevel(Logger.LogLevel.Debug);
             Logger.SetLogPrefix(request.DataVersions.JobId);
             Logger.Info("Preparing write...");
             _server.WriteConfigured = false;
@@ -418,7 +419,7 @@ namespace PluginHive.Plugin
 
             _server.WriteConfigured = true;
 
-            Logger.Debug(JsonConvert.SerializeObject(_server.WriteSettings, Formatting.Indented));
+            // Logger.Debug(JsonConvert.SerializeObject(_server.WriteSettings, Formatting.Indented));
             Logger.Info("Write prepared.");
             return new PrepareWriteResponse();
         }

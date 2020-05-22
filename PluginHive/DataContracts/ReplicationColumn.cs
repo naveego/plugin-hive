@@ -6,5 +6,6 @@ namespace PluginHive.DataContracts
         public string DataType { get; set; }
         public bool PrimaryKey { get; set; }
         public bool Serialize = false;
+        public bool IsKey { get; set; }
     }
 }
