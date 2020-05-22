@@ -15,6 +15,7 @@ namespace PluginHive.API.Utility
         public static string ReplicationMetaDataReplicatedShapeId = "naveego_shape_id";
         public static string ReplicationMetaDataReplicatedShapeName = "naveego_shape_name";
         public static string ReplicationMetaDataTimestamp = "timestamp";
+        public static string ReplicationInsertTimestamp = "naveego_insert_timestamp";
 
         public static List<ReplicationColumn> ReplicationMetaDataColumns = new List<ReplicationColumn>
         {

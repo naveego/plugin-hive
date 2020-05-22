@@ -387,7 +387,7 @@ namespace PluginHive.Plugin
         public override async Task<PrepareWriteResponse> PrepareWrite(PrepareWriteRequest request,
             ServerCallContext context)
         {
-            Logger.SetLogLevel(Logger.LogLevel.Debug);
+            // Logger.SetLogLevel(Logger.LogLevel.Debug);
             Logger.SetLogPrefix(request.DataVersions.JobId);
             Logger.Info("Preparing write...");
             _server.WriteConfigured = false;

@@ -56,42 +56,44 @@ namespace PluginHive.API.Replication
                 var recordData = GetNamedRecordData(schema, record.DataJson);
                 recordData[Constants.ReplicationRecordId] = record.RecordId;
                 recordData[Constants.ReplicationVersionIds] = recordVersionIds;
+                recordData[Constants.ReplicationInsertTimestamp] = DateTime.Now.ToString();
             
-                // get previous golden record
-                List<string> previousRecordVersionIds;
-                if (await RecordExistsAsync(connFactory, goldenTable, record.RecordId))
-                {
-                    var recordMap = await GetRecordAsync(connFactory, goldenTable, record.RecordId);
-            
-                    if (recordMap.ContainsKey(Constants.ReplicationVersionIds))
-                    {
-                        previousRecordVersionIds =
-                            JsonConvert.DeserializeObject<List<string>>(recordMap[Constants.ReplicationVersionIds].ToString());
-                    }
-                    else
-                    {
-                        previousRecordVersionIds = recordVersionIds;
-                    }
-                }
-                else
-                {
-                    previousRecordVersionIds = recordVersionIds;
-                }
+                // // get previous golden record
+                // List<string> previousRecordVersionIds;
+                // if (await RecordExistsAsync(connFactory, goldenTable, record.RecordId))
+                // {
+                //     var recordMap = await GetRecordAsync(connFactory, goldenTable, record.RecordId);
+                //
+                //     if (recordMap.ContainsKey(Constants.ReplicationVersionIds))
+                //     {
+                //         previousRecordVersionIds =
+                //             JsonConvert.DeserializeObject<List<string>>(recordMap[Constants.ReplicationVersionIds].ToString());
+                //     }
+                //     else
+                //     {
+                //         previousRecordVersionIds = recordVersionIds;
+                //     }
+                // }
+                // else
+                // {
+                //     previousRecordVersionIds = recordVersionIds;
+                // }
             
                 // write data
                 // check if 2 since we always add 2 things to the dictionary
-                if (recordData.Count == 2)
+                // if (recordData.Count == 2)
+                if (recordData.Count == 3)
                 {
-                    // delete everything for this record
-                    Logger.Debug($"shapeId: {safeSchemaName} | recordId: {record.RecordId} - DELETE");
-                    await DeleteRecordAsync(connFactory, goldenTable, record.RecordId);
-
-                    foreach (var versionId in previousRecordVersionIds)
-                    {
-                        Logger.Debug(
-                            $"shapeId: {safeSchemaName} | recordId: {record.RecordId} | versionId: {versionId} - DELETE");
-                        await DeleteRecordAsync(connFactory, versionTable, versionId);
-                    }
+                    // // delete everything for this record
+                    // Logger.Debug($"shapeId: {safeSchemaName} | recordId: {record.RecordId} - DELETE");
+                    // await DeleteRecordAsync(connFactory, goldenTable, record.RecordId);
+                    //
+                    // foreach (var versionId in previousRecordVersionIds)
+                    // {
+                    //     Logger.Debug(
+                    //         $"shapeId: {safeSchemaName} | recordId: {record.RecordId} | versionId: {versionId} - DELETE");
+                    //     await DeleteRecordAsync(connFactory, versionTable, versionId);
+                    // }
                 }
                 else
                 {
@@ -99,14 +101,14 @@ namespace PluginHive.API.Replication
                     Logger.Debug($"shapeId: {safeSchemaName} | recordId: {record.RecordId} - UPSERT");
                     await UpsertRecordAsync(connFactory, goldenTable, recordData);
                 
-                    // delete missing versions
-                    var missingVersions = previousRecordVersionIds.Except(recordVersionIds);
-                    foreach (var versionId in missingVersions)
-                    {
-                        Logger.Debug(
-                            $"shapeId: {safeSchemaName} | recordId: {record.RecordId} | versionId: {versionId} - DELETE");
-                        await DeleteRecordAsync(connFactory, versionTable, versionId);
-                    }
+                    // // delete missing versions
+                    // var missingVersions = previousRecordVersionIds.Except(recordVersionIds);
+                    // foreach (var versionId in missingVersions)
+                    // {
+                    //     Logger.Debug(
+                    //         $"shapeId: {safeSchemaName} | recordId: {record.RecordId} | versionId: {versionId} - DELETE");
+                    //     await DeleteRecordAsync(connFactory, versionTable, versionId);
+                    // }
                 
                     // upsert other versions
                     foreach (var version in record.Versions)
@@ -116,6 +118,7 @@ namespace PluginHive.API.Replication
                         var versionData = GetNamedRecordData(schema, version.DataJson);
                         versionData[Constants.ReplicationVersionRecordId] = version.RecordId;
                         versionData[Constants.ReplicationRecordId] = record.RecordId;
+                        versionData[Constants.ReplicationInsertTimestamp] = DateTime.Now.ToString();
                         await UpsertRecordAsync(connFactory, versionTable, versionData);
                     }
                 }

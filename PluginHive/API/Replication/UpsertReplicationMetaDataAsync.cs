@@ -43,57 +43,58 @@ WHERE {Utility.Utility.GetSafeName(Constants.ReplicationMetaDataJobId)} = '{{6}}
         
         public static async Task UpsertReplicationMetaDataAsync(IConnectionFactory connFactory, ReplicationTable table, ReplicationMetaData metaData)
         {
-            var conn = connFactory.GetConnection();
-            await conn.OpenAsync();
-
-            try
-            {
-                if (await RecordExistsAsync(connFactory, table, metaData.Request.DataVersions.JobId))
-                {
-                    // update if it failed
-                    var query = string.Format(UpdateMetaDataQuery,
-                        Utility.Utility.GetSafeName(table.SchemaName),
-                        Utility.Utility.GetSafeName(table.TableName),
-                        JsonConvert.SerializeObject(metaData.Request),
-                        metaData.ReplicatedShapeId,
-                        metaData.ReplicatedShapeName,
-                        metaData.Timestamp,
-                        metaData.Request.DataVersions.JobId
-                    );
-                    Logger.Debug(query);
-                    var cmd = connFactory.GetCommand(
-                        query,
-                        conn);
-                
-                    await cmd.ExecuteNonQueryAsync();
-                }
-                else
-                {
-                    // try to insert
-                    var query = string.Format(InsertMetaDataQuery,
-                        Utility.Utility.GetSafeName(table.SchemaName),
-                        Utility.Utility.GetSafeName(table.TableName),
-                        metaData.Request.DataVersions.JobId,
-                        JsonConvert.SerializeObject(metaData.Request),
-                        metaData.ReplicatedShapeId,
-                        metaData.ReplicatedShapeName,
-                        metaData.Timestamp
-                    );
-                    Logger.Debug(query);
-                    var cmd = connFactory.GetCommand(
-                        query,
-                        conn);
-                    
-                    await cmd.ExecuteNonQueryAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.Error($"Error: {e.Message}");
-                throw;
-            }
-
-            await conn.CloseAsync();
+            return;
+        //     var conn = connFactory.GetConnection();
+        //     await conn.OpenAsync();
+        //
+        //     try
+        //     {
+        //         if (await RecordExistsAsync(connFactory, table, metaData.Request.DataVersions.JobId))
+        //         {
+        //             // update if it failed
+        //             var query = string.Format(UpdateMetaDataQuery,
+        //                 Utility.Utility.GetSafeName(table.SchemaName),
+        //                 Utility.Utility.GetSafeName(table.TableName),
+        //                 JsonConvert.SerializeObject(metaData.Request),
+        //                 metaData.ReplicatedShapeId,
+        //                 metaData.ReplicatedShapeName,
+        //                 metaData.Timestamp,
+        //                 metaData.Request.DataVersions.JobId
+        //             );
+        //             Logger.Debug(query);
+        //             var cmd = connFactory.GetCommand(
+        //                 query,
+        //                 conn);
+        //         
+        //             await cmd.ExecuteNonQueryAsync();
+        //         }
+        //         else
+        //         {
+        //             // try to insert
+        //             var query = string.Format(InsertMetaDataQuery,
+        //                 Utility.Utility.GetSafeName(table.SchemaName),
+        //                 Utility.Utility.GetSafeName(table.TableName),
+        //                 metaData.Request.DataVersions.JobId,
+        //                 JsonConvert.SerializeObject(metaData.Request),
+        //                 metaData.ReplicatedShapeId,
+        //                 metaData.ReplicatedShapeName,
+        //                 metaData.Timestamp
+        //             );
+        //             Logger.Debug(query);
+        //             var cmd = connFactory.GetCommand(
+        //                 query,
+        //                 conn);
+        //             
+        //             await cmd.ExecuteNonQueryAsync();
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Logger.Error($"Error: {e.Message}");
+        //         throw;
+        //     }
+        //
+        //     await conn.CloseAsync();
         }
     }
 }

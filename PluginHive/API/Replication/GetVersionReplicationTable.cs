@@ -24,6 +24,14 @@ namespace PluginHive.API.Replication
                 DataType = "string",
                 PrimaryKey = false
             });
+            versionTable.Columns.Add(new ReplicationColumn
+            {
+                ColumnName = Constants.ReplicationInsertTimestamp,
+                // DataType = "text",
+                DataType = "string",
+                PrimaryKey = false,
+                Serialize = false
+            });
 
             return versionTable;
         }

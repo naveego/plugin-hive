@@ -17,62 +17,63 @@ namespace PluginHive.API.Replication
             string jobId,
             ReplicationTable table)
         {
-            try
-            {
-                ReplicationMetaData replicationMetaData = null;
-
-                // ensure replication metadata table
-                await EnsureTableAsync(connFactory, table);
-
-                // check if metadata exists
-                var conn = connFactory.GetConnection();
-                await conn.OpenAsync();
-
-                var cmd = connFactory.GetCommand(
-                    string.Format(GetMetaDataQuery, 
-                        Utility.Utility.GetSafeName(table.SchemaName),
-                        Utility.Utility.GetSafeName(table.TableName), 
-                        Utility.Utility.GetSafeName(Constants.ReplicationMetaDataJobId),
-                        jobId),
-                    conn);
-                var reader = await cmd.ExecuteReaderAsync();
-
-                if (reader.HasRows())
-                {
-                    // metadata exists
-                    await reader.ReadAsync();
-
-                    Logger.Debug(reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataRequest}").ToString());
-                    
-                    var request = JsonConvert.DeserializeObject<PrepareWriteRequest>(
-                        reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataRequest}").ToString());
-                    var shapeName = reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataReplicatedShapeName}")
-                        .ToString();
-                    var shapeId = reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataReplicatedShapeId}")
-                        .ToString();
-                    var timestamp = DateTime.Parse(reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataTimestamp}")
-                        .ToString());
-                    
-                    replicationMetaData = new ReplicationMetaData
-                    {
-                        Request = request,
-                        ReplicatedShapeName = shapeName,
-                        ReplicatedShapeId = shapeId,
-                        Timestamp = timestamp
-                    };
-                }
-
-                await conn.CloseAsync();
-
-                return replicationMetaData;
-            }
-            catch (Exception e)
-            {
-                Logger.Error(e.Message);
-                Logger.Error(e.StackTrace);
-                Logger.Error(e.Source);
-                throw;
-            }
+            return null;
+            // try
+            // {
+            //     ReplicationMetaData replicationMetaData = null;
+            //
+            //     // ensure replication metadata table
+            //     await EnsureTableAsync(connFactory, table);
+            //
+            //     // check if metadata exists
+            //     var conn = connFactory.GetConnection();
+            //     await conn.OpenAsync();
+            //
+            //     var cmd = connFactory.GetCommand(
+            //         string.Format(GetMetaDataQuery, 
+            //             Utility.Utility.GetSafeName(table.SchemaName),
+            //             Utility.Utility.GetSafeName(table.TableName), 
+            //             Utility.Utility.GetSafeName(Constants.ReplicationMetaDataJobId),
+            //             jobId),
+            //         conn);
+            //     var reader = await cmd.ExecuteReaderAsync();
+            //
+            //     if (reader.HasRows())
+            //     {
+            //         // metadata exists
+            //         await reader.ReadAsync();
+            //
+            //         Logger.Debug(reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataRequest}").ToString());
+            //         
+            //         var request = JsonConvert.DeserializeObject<PrepareWriteRequest>(
+            //             reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataRequest}").ToString());
+            //         var shapeName = reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataReplicatedShapeName}")
+            //             .ToString();
+            //         var shapeId = reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataReplicatedShapeId}")
+            //             .ToString();
+            //         var timestamp = DateTime.Parse(reader.GetValueById($"{table.TableName}.{Constants.ReplicationMetaDataTimestamp}")
+            //             .ToString());
+            //         
+            //         replicationMetaData = new ReplicationMetaData
+            //         {
+            //             Request = request,
+            //             ReplicatedShapeName = shapeName,
+            //             ReplicatedShapeId = shapeId,
+            //             Timestamp = timestamp
+            //         };
+            //     }
+            //
+            //     await conn.CloseAsync();
+            //
+            //     return replicationMetaData;
+            // }
+            // catch (Exception e)
+            // {
+            //     Logger.Error(e.Message);
+            //     Logger.Error(e.StackTrace);
+            //     Logger.Error(e.Source);
+            //     throw;
+            // }
         }
     }
 }

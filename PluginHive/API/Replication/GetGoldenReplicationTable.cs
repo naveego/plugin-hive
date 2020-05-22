@@ -25,7 +25,15 @@ namespace PluginHive.API.Replication
                 PrimaryKey = false,
                 Serialize = true
             });
-
+            goldenTable.Columns.Add(new ReplicationColumn
+            {
+                ColumnName = Constants.ReplicationInsertTimestamp,
+                // DataType = "text",
+                DataType = "string",
+                PrimaryKey = false,
+                Serialize = false
+            });
+            
             return goldenTable;
         }
     }
