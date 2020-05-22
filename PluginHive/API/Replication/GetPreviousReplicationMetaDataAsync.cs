@@ -67,6 +67,8 @@ namespace PluginHive.API.Replication
             catch (Exception e)
             {
                 Logger.Error(e.Message);
+                Logger.Error(e.StackTrace);
+                Logger.Error(e.Source);
                 throw;
             }
         }

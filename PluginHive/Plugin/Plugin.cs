@@ -90,6 +90,7 @@ namespace PluginHive.Plugin
                 }
                 
                 await conn.CloseAsync();
+                Logger.Info("Connected to Hive.");
             }
             catch (Exception e)
             {

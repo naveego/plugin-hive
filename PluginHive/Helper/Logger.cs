@@ -16,7 +16,7 @@ namespace PluginHive.Helper
         }
 
         private static string _logPrefix = "";
-        private static string _path = @"plugin-postgressql-log.txt";
+        private static string _path = @"plugin-hive-log.txt";
         private static LogLevel _level = LogLevel.Info;
         private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
         

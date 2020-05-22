@@ -21,6 +21,10 @@ namespace PluginHive.API.Factory
 
         public async Task OpenAsync()
         {
+            if ((_conn.State & ConnectionState.Open) != 0)
+            {
+                return;
+            }
             await _conn.OpenAsync();
         }
 
