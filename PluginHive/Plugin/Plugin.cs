@@ -51,7 +51,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(e, e.Message, context);
                 
                 return new ConnectResponse
                 {
@@ -69,7 +69,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(e, e.Message, context);
                 
                 return new ConnectResponse
                 {
@@ -102,7 +102,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(e, e.Message, context);
 
                 return new ConnectResponse
                 {
@@ -178,7 +178,7 @@ namespace PluginHive.Plugin
             //     }
             //     catch (Exception e)
             //     {
-            //         Logger.Error(e, e.Message);
+            //         Logger.Error(e, e.Message, context);
             //         throw;
             //     }
             // }
@@ -199,7 +199,7 @@ namespace PluginHive.Plugin
             // }
             // catch (Exception e)
             // {
-            //     Logger.Error(e, e.Message);
+            //     Logger.Error(e, e.Message, context);
             //     throw;
             // }
 
@@ -300,7 +300,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(e, e.Message, context);
                 
                 return new ConfigureWriteResponse
                 {
@@ -371,7 +371,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(e, e.Message, context);
                 
                 return Task.FromResult(new ConfigureReplicationResponse
                 {
@@ -419,7 +419,7 @@ namespace PluginHive.Plugin
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e, e.Message);
+                    Logger.Error(e, e.Message, context);
                     
                     return new PrepareWriteResponse();
                 }
@@ -489,7 +489,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message);
+                Logger.Error(e, e.Message, context);
             }
         }
 
