@@ -10,7 +10,7 @@
   "kind": "publisher",
   "os": "$GOOS",
   "arch": "$GOARCH",
-  "accessGroups": ["wyatt"],
+  "accessGroups": [],
   "canProduceMultipleSchemas": true,
   "canAcceptQueryBasedSchemas": false,
   "canUseOAuth": false,

@@ -51,7 +51,8 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                Logger.Error(e, e.Message);
+                
                 return new ConnectResponse
                 {
                     OauthStateJson = request.OauthStateJson,
@@ -68,8 +69,15 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
-                throw;
+                Logger.Error(e, e.Message);
+                
+                return new ConnectResponse
+                {
+                    OauthStateJson = request.OauthStateJson,
+                    ConnectionError = "",
+                    OauthError = "",
+                    SettingsError = e.Message
+                };
             }
 
             // test cluster factory
@@ -94,7 +102,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                Logger.Error(e, e.Message);
 
                 return new ConnectResponse
                 {
@@ -170,7 +178,7 @@ namespace PluginHive.Plugin
             //     }
             //     catch (Exception e)
             //     {
-            //         Logger.Error(e.Message);
+            //         Logger.Error(e, e.Message);
             //         throw;
             //     }
             // }
@@ -191,7 +199,7 @@ namespace PluginHive.Plugin
             // }
             // catch (Exception e)
             // {
-            //     Logger.Error(e.Message);
+            //     Logger.Error(e, e.Message);
             //     throw;
             // }
 
@@ -292,7 +300,8 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                Logger.Error(e, e.Message);
+                
                 return new ConfigureWriteResponse
                 {
                     Form = new ConfigurationFormResponse
@@ -325,7 +334,6 @@ namespace PluginHive.Plugin
 
             try
             {
-                var errors = new List<string>();
                 if (!string.IsNullOrWhiteSpace(request.Form.DataJson))
                 {
                     // check for config errors
@@ -334,7 +342,7 @@ namespace PluginHive.Plugin
 
                     replicationFormData.SchemaName = replicationFormData.SchemaName.ToLower();
 
-                    errors = replicationFormData.ValidateReplicationFormData();
+                    var errors = replicationFormData.ValidateReplicationFormData();
                     
                     return Task.FromResult(new ConfigureReplicationResponse
                     {
@@ -363,7 +371,8 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                Logger.Error(e, e.Message);
+                
                 return Task.FromResult(new ConfigureReplicationResponse
                 {
                     Form = new ConfigurationFormResponse
@@ -410,8 +419,9 @@ namespace PluginHive.Plugin
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.Message);
-                    throw;
+                    Logger.Error(e, e.Message);
+                    
+                    return new PrepareWriteResponse();
                 }
 
                 Logger.Info($"Finished reconciling Replication Job {request.DataVersions.JobId}");
@@ -479,8 +489,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
-                throw;
+                Logger.Error(e, e.Message);
             }
         }
 

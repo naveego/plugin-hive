@@ -175,7 +175,7 @@ namespace PluginHive.API.Replication
             }
             catch (Exception e)
             {
-                Logger.Error($"Error: {e.Message}");
+                Logger.Error(e, $"Error: {e.Message}");
                 throw;
             }
 
