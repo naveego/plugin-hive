@@ -158,7 +158,7 @@ namespace PluginHive.Plugin
             Logger.SetLogPrefix("discover");
             Logger.Info("Discovering Schemas...");
 
-            // var sampleSize = checked((int) request.SampleSize);
+            var sampleSize = checked((int) request.SampleSize);
             //
             DiscoverSchemasResponse discoverSchemasResponse = new DiscoverSchemasResponse();
             //
@@ -183,27 +183,27 @@ namespace PluginHive.Plugin
             //     }
             // }
             //
-            // try
-            // {
-            //     var refreshSchemas = request.ToRefresh;
-            //
-            //     Logger.Info($"Refresh schemas attempted: {refreshSchemas.Count}");
-            //
-            //     var schemas = Discover.GetRefreshSchemas(_connectionFactory, refreshSchemas, sampleSize);
-            //
-            //     discoverSchemasResponse.Schemas.AddRange(await schemas.ToListAsync());
-            //
-            //     // return all schemas 
-            //     Logger.Info($"Schemas returned: {discoverSchemasResponse.Schemas.Count}");
-            //     return discoverSchemasResponse;
-            // }
-            // catch (Exception e)
-            // {
-            //     Logger.Error(e, e.Message, context);
-            //     throw;
-            // }
+            try
+            {
+                var refreshSchemas = request.ToRefresh;
+            
+                Logger.Info($"Refresh schemas attempted: {refreshSchemas.Count}");
+            
+                var schemas = Discover.GetRefreshSchemas(_connectionFactory, refreshSchemas, sampleSize);
+            
+                discoverSchemasResponse.Schemas.AddRange(await schemas.ToListAsync());
+            
+                // return all schemas 
+                Logger.Info($"Schemas returned: {discoverSchemasResponse.Schemas.Count}");
+                return discoverSchemasResponse;
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, e.Message, context);
+                return new DiscoverSchemasResponse();
+            }
 
-            return discoverSchemasResponse;
+            // return discoverSchemasResponse;
         }
 
         /// <summary>
@@ -216,30 +216,37 @@ namespace PluginHive.Plugin
         public override async Task ReadStream(ReadRequest request, IServerStreamWriter<Record> responseStream,
             ServerCallContext context)
         {
-            var schema = request.Schema;
-            var limit = request.Limit;
-            var limitFlag = request.Limit != 0;
-            var jobId = request.JobId;
-            var recordsCount = 0;
+            try
+            {
+                var schema = request.Schema;
+                var limit = request.Limit;
+                var limitFlag = request.Limit != 0;
+                var jobId = request.JobId;
+                var recordsCount = 0;
 
-            Logger.SetLogPrefix(jobId);
+                Logger.SetLogPrefix(jobId);
 
-            // var records = Read.ReadRecords(_connectionFactory, schema);
-            //
-            // await foreach (var record in records)
-            // {
-            //     // stop publishing if the limit flag is enabled and the limit has been reached or the server is disconnected
-            //     if (limitFlag && recordsCount == limit || !_server.Connected)
-            //     {
-            //         break;
-            //     }
-            //
-            //     // publish record
-            //     await responseStream.WriteAsync(record);
-            //     recordsCount++;
-            // }
+                var records = Read.ReadRecords(_connectionFactory, schema);
+            
+                await foreach (var record in records)
+                {
+                    // stop publishing if the limit flag is enabled and the limit has been reached or the server is disconnected
+                    if (limitFlag && recordsCount == limit || !_server.Connected)
+                    {
+                        break;
+                    }
+            
+                    // publish record
+                    await responseStream.WriteAsync(record);
+                    recordsCount++;
+                }
 
-            Logger.Info($"Published {recordsCount} records");
+                Logger.Info($"Published {recordsCount} records");
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, e.Message, context);
+            }
         }
 
         /// <summary>
