@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
+using Naveego.Sdk.Logging;
 using Naveego.Sdk.Plugins;
 using Newtonsoft.Json;
 using PluginHive.API.Discover;
@@ -30,7 +32,30 @@ namespace PluginHive.Plugin
                 WriteConfigured = false
             };
         }
+        /// <summary>
+        /// Configures the plugin
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override Task<ConfigureResponse> Configure(ConfigureRequest request, ServerCallContext context)
+        {
+            Logger.Debug("Got configure request");
+            Logger.Debug(JsonConvert.SerializeObject(request, Formatting.Indented));
 
+            // ensure all directories are created
+            Directory.CreateDirectory(request.TemporaryDirectory);
+            Directory.CreateDirectory(request.PermanentDirectory);
+            Directory.CreateDirectory(request.LogDirectory);
+
+            // configure logger
+            Logger.SetLogLevel(request.LogLevel);
+            Logger.Init(request.LogDirectory);
+
+            _server.Config = request;
+
+            return Task.FromResult(new ConfigureResponse());
+        }
         /// <summary>
         /// Establishes a connection with Hive.
         /// </summary>

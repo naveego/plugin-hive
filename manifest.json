@@ -16,6 +16,7 @@
   "canUseOAuth": false,
   "canConfigureWrite": false,
   "canWrite": false,
+  "canConfigure": true,
   "canConfigureReplication": true,
   "canWriteReplication": true,
   "querySchema": {
