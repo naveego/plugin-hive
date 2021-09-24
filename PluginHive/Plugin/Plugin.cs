@@ -76,7 +76,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message, context);
+                Logger.Error(e, e.Message);
                 
                 return new ConnectResponse
                 {
@@ -94,7 +94,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message, context);
+                Logger.Error(e, e.Message);
                 
                 return new ConnectResponse
                 {
@@ -127,7 +127,7 @@ namespace PluginHive.Plugin
             }
             catch (Exception e)
             {
-                Logger.Error(e, e.Message, context);
+                Logger.Error(e, e.Message);
 
                 return new ConnectResponse
                 {
